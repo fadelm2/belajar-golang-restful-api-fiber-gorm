@@ -1,0 +1,29 @@
+### Get all Notes
+GET http://localhost:8000/api/note
+Accept: application/json
+
+### Create new Notes
+POST http://localhost:8000/api/note
+Accept: application/json
+Content-Type: application/json
+
+{
+  "content" : "Food"
+}
+
+### Get Notes by Id
+GET http://localhost:8000/api/notes/8
+Accept: application/json
+
+### Update Notes by id
+PATCH http://localhost:8000/api/notes/8
+Accept: application/json
+Content-Type: application/json
+
+{
+  "content" : "Food"
+}
+
+### Delete Notes by id
+DELETE http://localhost:8000/api/notes/9
+Accept: application/json
