@@ -33,7 +33,12 @@ func main() {
 	//routes
 	routes := router.NewRouter(noteContoller)
 
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		ErrorHandler: func(ctx *fiber.Ctx, err error) error {
+			ctx.Status(fiber.StatusInternalServerError)
+			return ctx.SendString("Error : " + err.Error())
+		},
+	})
 	app.Mount("/api", routes)
 	log.Fatal(app.Listen(":8000"))
 }

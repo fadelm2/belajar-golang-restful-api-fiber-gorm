@@ -20,7 +20,7 @@ func NewRouter(noteController *controller.NoteController) *fiber.App {
 		router.Get("", noteController.FindAll)
 	})
 
-	router.Route("/notes/:noteid", func(router fiber.Router) {
+	router.Route("/notes/:noteId", func(router fiber.Router) {
 		router.Delete("", noteController.Delete)
 		router.Get("", noteController.FindById)
 		router.Patch("", noteController.Update)

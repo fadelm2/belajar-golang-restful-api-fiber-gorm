@@ -78,7 +78,7 @@ func (controller *NoteController) FindById(ctx *fiber.Ctx) error {
 	webResponse := response.Response{
 		Code:    200,
 		Status:  "ok",
-		Message: "Successfully get notes data!",
+		Message: "Successfully get notes data by id!",
 		Data:    noteResponse,
 	}
 	return ctx.Status(fiber.StatusCreated).JSON(webResponse)

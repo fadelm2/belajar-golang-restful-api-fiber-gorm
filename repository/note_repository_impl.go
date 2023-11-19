@@ -18,7 +18,7 @@ func NewNoteRepositoryImpl(Db *gorm.DB) NoteRepository {
 
 func (n *NoteRepositoryImpl) FindById(noteId int) (model.Note, error) {
 	var note model.Note
-	result := n.Db.Take(&note, "id = ?", noteId)
+	result := n.Db.First(&note, "id = ?", noteId).Error
 	if result == nil {
 		return note, nil
 	} else {

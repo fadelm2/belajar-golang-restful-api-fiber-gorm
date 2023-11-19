@@ -8,22 +8,25 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "content" : "Food"
+  "content" : "abdan supirt bus"
 }
 
 ### Get Notes by Id
-GET http://localhost:8000/api/notes/8
+GET http://127.0.0.1:8000/api/notes/12
 Accept: application/json
 
-### Update Notes by id
-PATCH http://localhost:8000/api/notes/8
+### Update
+PATCH http://localhost:8000/api/notes/12
 Accept: application/json
 Content-Type: application/json
 
 {
-  "content" : "Food"
+  "content" : "abdan supir bus"
 }
-
 ### Delete Notes by id
-DELETE http://localhost:8000/api/notes/9
+DELETE http://localhost:8000/api/notes/10
+Accept: application/json
+
+### Healt check
+http://127.0.0.1:8000/api/healthchecker
 Accept: application/json
