@@ -7,6 +7,7 @@ import (
 	"log"
 	"restful-api-gorm-fiber/config"
 	"restful-api-gorm-fiber/controller"
+	"restful-api-gorm-fiber/exception"
 	"restful-api-gorm-fiber/model"
 	"restful-api-gorm-fiber/repository"
 	"restful-api-gorm-fiber/router"
@@ -34,10 +35,7 @@ func main() {
 	routes := router.NewRouter(noteContoller)
 
 	app := fiber.New(fiber.Config{
-		ErrorHandler: func(ctx *fiber.Ctx, err error) error {
-			ctx.Status(fiber.StatusInternalServerError)
-			return ctx.SendString("Error : " + err.Error())
-		},
+		ErrorHandler: exception.ErrorHandler,
 	})
 	app.Mount("/api", routes)
 	log.Fatal(app.Listen(":8000"))

@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"restful-api-gorm-fiber/data/request"
 	"restful-api-gorm-fiber/data/response"
+	"restful-api-gorm-fiber/exception"
 	"restful-api-gorm-fiber/helper"
 	"restful-api-gorm-fiber/service"
 	"strconv"
@@ -35,11 +36,15 @@ func (controller *NoteController) Create(ctx *fiber.Ctx) error {
 func (controller *NoteController) Update(ctx *fiber.Ctx) error {
 	updateNoteRequest := request.UpdateNoteRequest{}
 	err := ctx.BodyParser(&updateNoteRequest)
-	helper.ErrorPanic(err)
+	if err != nil {
+		return exception.ErrorHandler(ctx, err)
+	}
 
 	noteId := ctx.Params("noteId")
 	id, err := strconv.Atoi(noteId)
-	helper.ErrorPanic(err)
+	if err != nil {
+		return exception.ErrBadRequest
+	}
 
 	updateNoteRequest.Id = id
 	controller.noteService.Update(updateNoteRequest)
@@ -56,7 +61,10 @@ func (controller *NoteController) Update(ctx *fiber.Ctx) error {
 func (controller *NoteController) Delete(ctx *fiber.Ctx) error {
 	noteId := ctx.Params("noteId")
 	id, err := strconv.Atoi(noteId)
-	helper.ErrorPanic(err)
+	if err != nil {
+		return exception.ErrBadRequest
+	}
+
 	controller.noteService.Delete(id)
 
 	webResponse := response.Response{
@@ -71,15 +79,21 @@ func (controller *NoteController) Delete(ctx *fiber.Ctx) error {
 func (controller *NoteController) FindById(ctx *fiber.Ctx) error {
 	noteId := ctx.Params("noteId")
 	id, err := strconv.Atoi(noteId)
-	helper.ErrorPanic(err)
+	if err != nil {
+		return exception.ErrBadRequest
+	}
 
 	noteResponse := controller.noteService.FindById(id)
+
+	if &noteResponse.Content == nil {
+		return exception.ErrNotFound
+	}
 
 	webResponse := response.Response{
 		Code:    200,
 		Status:  "ok",
 		Message: "Successfully get notes data by id!",
-		Data:    noteResponse,
+		Data:    &noteResponse,
 	}
 	return ctx.Status(fiber.StatusCreated).JSON(webResponse)
 }

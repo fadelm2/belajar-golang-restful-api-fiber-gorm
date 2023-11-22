@@ -12,11 +12,11 @@ Content-Type: application/json
 }
 
 ### Get Notes by Id
-GET http://127.0.0.1:8000/api/notes/12
+GET http://127.0.0.1:8000/api/notes/13
 Accept: application/json
 
 ### Update
-PATCH http://localhost:8000/api/notes/12
+PATCH http://localhost:8000/api/notes/jhkk
 Accept: application/json
 Content-Type: application/json
 

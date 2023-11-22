@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"github.com/go-playground/validator/v10"
 	"restful-api-gorm-fiber/data/request"
 	"restful-api-gorm-fiber/data/response"
@@ -42,12 +43,20 @@ func (n *NoteServiceImpl) Delete(noteId int) {
 }
 
 func (n *NoteServiceImpl) FindById(noteId int) response.NoteResponse {
+	err := n.validate.Var(noteId, "number")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 	noteData, err := n.NoteRepository.FindById(noteId)
-	helper.ErrorPanic(err)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 	noteResponse := response.NoteResponse{
 		Id:      noteData.Id,
 		Content: noteData.Content,
 	}
+
 	return noteResponse
 }
 

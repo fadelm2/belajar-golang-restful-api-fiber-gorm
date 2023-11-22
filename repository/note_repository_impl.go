@@ -22,7 +22,7 @@ func (n *NoteRepositoryImpl) FindById(noteId int) (model.Note, error) {
 	if result == nil {
 		return note, nil
 	} else {
-		return note, errors.New("note is not found")
+		return note, errors.New("Note is not found")
 	}
 }
 func (n *NoteRepositoryImpl) Save(note model.Note) {
