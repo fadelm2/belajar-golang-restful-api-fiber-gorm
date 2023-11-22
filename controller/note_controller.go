@@ -83,9 +83,8 @@ func (controller *NoteController) FindById(ctx *fiber.Ctx) error {
 		return exception.ErrBadRequest
 	}
 
-	noteResponse := controller.noteService.FindById(id)
-
-	if &noteResponse.Content == nil {
+	noteResponse, err := controller.noteService.FindById(id)
+	if err != nil {
 		return exception.ErrNotFound
 	}
 
