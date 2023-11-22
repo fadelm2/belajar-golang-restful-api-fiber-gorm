@@ -1,0 +1,4 @@
+
+
+show databases
+

@@ -26,10 +26,10 @@ func main() {
 	noteRepository := repository.NewNoteRepositoryImpl(db)
 
 	//init Service
-	noteservice := service.NewNoteServiceImpl(noteRepository, validate)
+	noteService := service.NewNoteServiceImpl(noteRepository, validate)
 
 	//note contoller
-	noteContoller := controller.NewNoteController(noteservice)
+	noteContoller := controller.NewNoteController(noteService)
 
 	//routes
 	routes := router.NewRouter(noteContoller)
