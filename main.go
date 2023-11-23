@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"log"
 	"restful-api-gorm-fiber/config"
 	"restful-api-gorm-fiber/controller"
@@ -37,6 +38,8 @@ func main() {
 	app := fiber.New(fiber.Config{
 		ErrorHandler: exception.ErrorHandler,
 	})
+
+	app.Use(logger.New())
 	app.Mount("/api", routes)
 	log.Fatal(app.Listen(":8000"))
 }
